@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  app:
+    container_name: nodejs_hoge
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      NODE_ENV: development
+    # command: npm start
+    networks:
+      - app-network
+    depends_on:
+      - db
+    tty: true
+  db:
+    container_name: mongodb_hoge
+    image: mongo:7.0.5-jammy
+    ports:
+      - "27017:27017"
+    volumes:
+      - dbdata:/data/db
+    networks:
+      - app-network
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    tty: true
+    
+volumes:
+  dbdata:
+
+networks:
+  app-network:
+    driver: bridge

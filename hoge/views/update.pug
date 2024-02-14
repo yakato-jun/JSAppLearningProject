@@ -1,0 +1,11 @@
+doctype html
+html(lang="ja")
+  head
+    meta(charset="UTF-8")
+  body
+    h1 save message
+    form(action="update" method="post")
+      input(type="text" name="username" placeholder="名前")
+      textarea(name="message" placeholder="メッセージ")
+      button(type="submit") 送信
+
